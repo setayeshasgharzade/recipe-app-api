@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   app:
     build: 
@@ -10,3 +12,22 @@ services:
       - .:/app:/app
     command: >
       sh -c "python manage.py runserver 0.0.0.0:8000"
+    environment:
+       - DB_HOST=db
+       - DB_NAME=devdb
+       - DB_USER=devuser
+       - DB_PASS=changeme
+    depends_on:
+      - db
+#here instead of putting all essential info about db right in the settings which a lot of people can access(not safe) we define them in here and use them as variables in settings.py
+  db:
+    image: postgres:17
+    volumes:
+      - dev-db-data:/var/lib/postgresql/data
+    environment: 
+      - POSTGRES_DB=devdb
+      - POSTGRES_USER=devuser
+      - POSTGRES_PASSWORD=changeme
+
+volumes:
+  dev-db-data:
