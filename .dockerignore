@@ -1,0 +1,16 @@
+#Git : is a hidden directory and it's huge. so we don't want that to be coppied in our docker image
+.git
+.gitignore
+
+#Docker : docker hidden file and we don't need it. it contains some exra files that our local machine keeps.
+.docker
+
+#Python : these are some files that our local machine creates and they are adapted to the operating system of our machine and we don't need that in our container 
+app/__pycache__/
+app/*/__pycache__/
+app/*/*/__pycache__/
+app/*/*/*/__pycache__/
+.env
+.venv/
+venv/
+#then we delete the virtual environment to prevent it form being coppied in our image and we already have a virtual environment in our image.
